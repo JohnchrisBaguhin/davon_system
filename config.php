@@ -1,14 +1,14 @@
 <?php
-// Remote Database connection
-$servername = "192.185.48.158";
-$username = "bisublar_k9";
-$password = "k9Registration@2025";
-$dbname = "bisublar_k9";
+// Remote Database connection using environment variables
+$servername = getenv("DB_HOST");
+$username = getenv("DB_USER");
+$password = getenv("DB_PASS");
+$dbname = getenv("DB_NAME");
 
-// Simple connection without SSL
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_init();
+mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
 
-if (!$conn) {
+if (!mysqli_real_connect($conn, $servername, $username, $password, $dbname, 3306, NULL, MYSQLI_CLIENT_SSL)) {
     die("Connection failed: " . mysqli_connect_error());
 }
 ?>

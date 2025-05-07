@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: crms-php-app
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        value: 192.185.48.158
+      - key: DB_USER
+        value: bisublar_k9
+      - key: DB_PASS
+        value: k9Registration@2025
+      - key: DB_NAME
+        value: bisublar_k9
