@@ -1,16 +1,12 @@
 FROM php:8.2-apache
 
-# Install system dependencies
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    default-mysql-client \
-    libonig-dev \
     libzip-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
     zip \
     unzip \
+    default-mysql-client \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install mysqli pdo pdo_mysql
 
