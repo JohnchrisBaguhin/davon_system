@@ -1,18 +1,28 @@
 <?php
-// Supabase PostgreSQL credentials
-$host = 'aws-0-ap-southeast-1.pooler.supabase.com';
-$db   = 'postgres';
-$user = 'postgres.mxgvexgdfrvsnsgdazbn';
-$pass = 'ULpSLhzXgeLX9jXj'; // Use your actual password
-$port = '6543';
+// Show environment variable values (for debugging)
+echo "DB_HOST: " . getenv('DB_HOST') . "<br>";
+echo "DB_USER: " . getenv('DB_USER') . "<br>";
+echo "DB_PASS: " . getenv('DB_PASS') . "<br>";
+echo "DB_NAME: " . getenv('DB_NAME') . "<br>";
 
-try {
-    $dsn = "pgsql:host=$host;port=$port;dbname=$db;";
-    $conn = new PDO($dsn, $user, $pass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
-    // Optional: echo "✅ Connected";
-} catch (PDOException $e) {
-    die("❌ Database connection failed: " . $e->getMessage());
+// Load environment variables
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASS');
+$dbname = getenv('DB_NAME');
+
+// Check if all required environment variables are set
+if (!$servername || !$username || !$password || !$dbname) {
+    die("❌ Missing one or more DB environment variables.");
 }
-return $conn;
+
+// Create connection
+$conn = mysqli_init();
+mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
+
+if (!mysqli_real_connect($conn, $servername, $username, $password, $dbname, 3306, NULL, MYSQLI_CLIENT_SSL)) {
+    die("❌ Connection failed: " . mysqli_connect_error());
+}
+
+echo "✅ Successfully connected to the database!";
+?>
