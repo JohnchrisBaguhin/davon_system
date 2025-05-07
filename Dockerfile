@@ -3,13 +3,22 @@ FROM php:8.2-apache
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    && docker-php-ext-install pdo_pgsql
+    default-mysql-client \
+    libonig-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    unzip \
+    && docker-php-ext-install pdo_pgsql \
+    && docker-php-ext-install mysqli pdo pdo_mysql
 
-# Enable Apache mod_rewrite if needed
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Copy your application files to the container
+# Copy application files to the container
 COPY . /var/www/html
 
-# Set the working directory
+# Set working directory
 WORKDIR /var/www/html
