@@ -10,11 +10,7 @@ $username   = get_env_var('DB_USER');
 $password   = get_env_var('DB_PASS');
 $dbname     = get_env_var('DB_NAME');
 
-// Debug output to check if env vars are loaded
-echo "DB_HOST: $servername<br>";
-echo "DB_USER: $username<br>";
-// ⚠️ Avoid printing DB_PASS in production for security
-echo "DB_NAME: $dbname<br>";
+
 
 // Check if all required environment variables are set
 if (!$servername || !$username || !$password || !$dbname) {
