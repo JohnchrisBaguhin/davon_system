@@ -1,24 +1,15 @@
 <?php
-// Load environment variables
-$servername = getenv('DB_HOST');
-$username   = getenv('DB_USER');
-$password   = getenv('DB_PASS');
-$dbname     = getenv('DB_NAME');
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASS');
+$db   = getenv('DB_NAME');
 
-// Check if all required environment variables are set
-if (!$servername || !$username || !$password || !$dbname) {
-    die("❌ Missing one or more DB environment variables.");
-}
+echo "Testing connection to $host...<br>";
 
-// Debug output
-echo "Connecting to $servername with user $username<br>";
-
-// Connect to MySQL without SSL
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_connect($host, $user, $pass, $db);
 
 if (!$conn) {
     die("❌ Connection failed: " . mysqli_connect_error());
 }
-
-echo "✅ Successfully connected to the database!";
+echo "✅ Connected successfully!";
 ?>
